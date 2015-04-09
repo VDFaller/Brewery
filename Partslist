@@ -1,0 +1,26 @@
+Shown on screen
+
+Volt Meter
+Amp Meter
+Alarm
+Element On light for each element
+PID controllers (3) # Logic to separate PID controller
+Reset button
+Alarm toggle buttons
+Pump on Lights
+Timer
+
+
+Not on Screen
+ESTOP
+Power on
+
+
+Physical Parts needed
+2 Solid State Relays for heating elements with Heat sync(s) 40A, 12VDC input, 240VAC output
+Volt/Amp Meter?
+Temperature Probes
+2-3 Valves (5 V mechanical relay)
+2 pumps (5V mechanical relay)
+power switch
+240 V to 5 V/2A power supply

@@ -41,7 +41,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLCDNumber" name="LCD_HLT_Measured">
+        <widget class="QLCDNumber" name="lcd_hlt_meas">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -116,7 +116,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QLCDNumber" name="LCD_HLT_Set">
+        <widget class="QLCDNumber" name="lcd_hlt_set">
          <property name="palette">
           <palette>
            <active>
@@ -175,7 +175,7 @@
         </widget>
        </item>
        <item row="3" column="2">
-        <widget class="QSlider" name="HLT_Temp_Slider">
+        <widget class="QSlider" name="sldr_hlt_set">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -194,7 +194,7 @@
         </widget>
        </item>
        <item row="4" column="0">
-        <widget class="QPushButton" name="pushButton_6">
+        <widget class="QPushButton" name="alarmbtn_hlt">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(0, 154, 74);</string>
          </property>
@@ -210,7 +210,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QToolButton" name="toolButton_2">
+        <widget class="QToolButton" name="alarm_hlt">
          <property name="maximumSize">
           <size>
            <width>20</width>
@@ -366,7 +366,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLCDNumber" name="LCD_Boil_Measured">
+        <widget class="QLCDNumber" name="lcd_boil_meas">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -435,7 +435,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QLCDNumber" name="LCD_Boil_Set">
+        <widget class="QLCDNumber" name="lcd_boil_set">
          <property name="palette">
           <palette>
            <active>
@@ -494,7 +494,7 @@
         </widget>
        </item>
        <item row="3" column="2">
-        <widget class="QSlider" name="Boil_Temp_Slider">
+        <widget class="QSlider" name="sldr_boil_set">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -515,12 +515,12 @@
        <item row="4" column="0">
         <widget class="QLabel" name="label_2">
          <property name="text">
-          <string>Mash Time (min)</string>
+          <string>Boil Time (min)</string>
          </property>
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QLCDNumber" name="LCD_Boil_Time">
+        <widget class="QLCDNumber" name="lcd_boil_time">
          <property name="palette">
           <palette>
            <active>
@@ -579,7 +579,7 @@
         </widget>
        </item>
        <item row="5" column="2">
-        <widget class="QSlider" name="Boil_Time_Slider">
+        <widget class="QSlider" name="sldr_boil_time">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -598,7 +598,7 @@
         </widget>
        </item>
        <item row="6" column="0">
-        <widget class="QPushButton" name="pushButton_5">
+        <widget class="QPushButton" name="alarmbtn_boil">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(0, 154, 74);</string>
          </property>
@@ -614,7 +614,7 @@
         </widget>
        </item>
        <item row="0" column="2">
-        <widget class="QToolButton" name="toolButton_3">
+        <widget class="QToolButton" name="alarm_boil">
          <property name="maximumSize">
           <size>
            <width>20</width>
@@ -659,7 +659,7 @@
         </widget>
        </item>
        <item row="1" column="0">
-        <widget class="QLCDNumber" name="LCD_Mash_Measured">
+        <widget class="QLCDNumber" name="lcd_mash_meas">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -715,7 +715,7 @@
         </widget>
        </item>
        <item row="6" column="0" colspan="2">
-        <widget class="QPushButton" name="pushButton_4">
+        <widget class="QPushButton" name="alarmbtn_mash">
          <property name="styleSheet">
           <string notr="true">background-color: rgb(0, 154, 74);</string>
          </property>
@@ -737,7 +737,7 @@
         </widget>
        </item>
        <item row="3" column="0">
-        <widget class="QLCDNumber" name="LCD_Mash_Set">
+        <widget class="QLCDNumber" name="lcd_mash_set">
          <property name="palette">
           <palette>
            <active>
@@ -796,7 +796,7 @@
         </widget>
        </item>
        <item row="5" column="0">
-        <widget class="QLCDNumber" name="LCD_Mash_Time">
+        <widget class="QLCDNumber" name="lcd_mash_time">
          <property name="palette">
           <palette>
            <active>
@@ -855,7 +855,7 @@
         </widget>
        </item>
        <item row="5" column="1">
-        <widget class="QSlider" name="Mash_Time_Slider">
+        <widget class="QSlider" name="sldr_mash_time">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -874,7 +874,7 @@
         </widget>
        </item>
        <item row="3" column="1">
-        <widget class="QSlider" name="Mash_Temp_Slider">
+        <widget class="QSlider" name="sldr_mash_set">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
            <horstretch>0</horstretch>
@@ -906,7 +906,7 @@
         </widget>
        </item>
        <item row="0" column="1">
-        <widget class="QToolButton" name="toolButton">
+        <widget class="QToolButton" name="alarm_mash">
          <property name="maximumSize">
           <size>
            <width>20</width>
@@ -937,14 +937,17 @@
       </property>
      </widget>
     </item>
+    <item row="4" column="0" colspan="3">
+     <widget class="QLineEdit" name="le_debug"/>
+    </item>
    </layout>
    <zorder>groupBox_6</zorder>
    <zorder>groupBox_4</zorder>
    <zorder>progressBar</zorder>
    <zorder>groupBox</zorder>
-   <zorder>lcdNumber_3</zorder>
    <zorder>groupBox_2</zorder>
    <zorder>groupBox_5</zorder>
+   <zorder>le_debug</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -961,25 +964,25 @@
  <resources/>
  <connections>
   <connection>
-   <sender>Mash_Temp_Slider</sender>
+   <sender>sldr_mash_set</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>LCD_Mash_Set</receiver>
+   <receiver>lcd_mash_set</receiver>
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>610</x>
-     <y>488</y>
+     <x>620</x>
+     <y>480</y>
     </hint>
     <hint type="destinationlabel">
-     <x>558</x>
-     <y>486</y>
+     <x>594</x>
+     <y>480</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>HLT_Temp_Slider</sender>
+   <sender>sldr_hlt_set</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>LCD_HLT_Set</receiver>
+   <receiver>lcd_hlt_set</receiver>
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -993,9 +996,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>Mash_Time_Slider</sender>
+   <sender>sldr_mash_time</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>LCD_Mash_Time</receiver>
+   <receiver>lcd_mash_time</receiver>
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1009,9 +1012,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>Boil_Time_Slider</sender>
+   <sender>sldr_boil_time</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>LCD_Boil_Time</receiver>
+   <receiver>lcd_boil_time</receiver>
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1025,9 +1028,9 @@
    </hints>
   </connection>
   <connection>
-   <sender>Boil_Temp_Slider</sender>
+   <sender>sldr_boil_set</sender>
    <signal>valueChanged(int)</signal>
-   <receiver>LCD_Boil_Set</receiver>
+   <receiver>lcd_boil_set</receiver>
    <slot>display(int)</slot>
    <hints>
     <hint type="sourcelabel">
@@ -1037,6 +1040,22 @@
     <hint type="destinationlabel">
      <x>869</x>
      <y>469</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>alarmbtn_mash</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>alarmbtn_mash</receiver>
+   <slot>animateClick()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>517</x>
+     <y>627</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>481</x>
+     <y>630</y>
     </hint>
    </hints>
   </connection>
