@@ -84,29 +84,26 @@ class DataLogger:
     def __init__(self):
         pass
     
-class Recipe:
-    def __init__(self, strike_temp, sparge_temp, mash_temp, mash_time, boil_temp, boil_time):
-        self.hlt = Keg(strike_temp)
-        self.mash = Keg(mash_temp, mash_time)
-        self.boil = Keg(boil_temp, boil_time)
-        self.sparge_temp = sparge_temp
+class Controls:
+    def __init__(self):
+        self.hlt = Keg()
+        self.mash = Keg()
+        self.boil = Keg()
         self.steps = {1:self.hlt, 2:self.mash, 3:self.hlt, 4:self.boil}
         self.currentStep = 1
         self.keg = self.steps[1]
-        self.run_time = self.mash.setTime + self.boil.setTime
-        self.strike_volume = 5
-        self.sparge_volume = 5
         self.done = False
         self.change = True
         self.controller = PID()
-        self.controller.setPoint(self.keg.setTemp)
-        self.tempLog = []
         self.start_step(1)
+        self.time = datetime.datetime.now()
+        self.started = False
         
    
     def start_step(self, step):
         keg = self.steps[step]
-        keg.start_time = datetime.datetime.now()
+        self.tempLog = []
+        keg.stable = False
         keg.running = True
         
     def checkTime(self, keg):
@@ -117,12 +114,9 @@ class Recipe:
         return min_left
     
     def update(self):
-        pidValue = self.controller.update(self.keg.temp)
-        self.keg.temp = self.keg.temp + pidValue/28 #temp
+        self.change_temp()
         self.change = False
         if not(self.keg.stable):
-            self.tempLog.append(self.keg.temp)
-            self.tempLog = self.tempLog[-100:]
             if len(self.tempLog) == 100:
                 stdev = statistics.stdev(self.tempLog)
                 if stdev < 1.0:
@@ -135,21 +129,61 @@ class Recipe:
             else:
                 self.change = True
                 self.keg = self.steps[self.currentStep]
-                self.start_step(self.currentStep)
                 self.controller.setPoint(self.keg.setTemp)
+                self.stupid_bit = True
             if self.currentStep == 3:
-                self.keg.setTemp = self.sparge_temp
+                self.keg.set_temp(self.recipe.sparge_temp)
         else:
+            if self.stupid_bit:
+                self.keg.start_time = datetime.datetime.now()
+                self.stupid_bit = False
             self.keg.time = self.checkTime(self.keg)
             
+    def change_temp(self):
+        now = datetime.datetime.now()
+        time = now - self.time
+        if time.seconds >= 1 and self.started:
+            pidValue = self.controller.update(self.keg.temp)
+            self.keg.temp = self.keg.temp + pidValue/28 #temp
+            self.tempLog.append(self.keg.temp)
+            self.tempLog = self.tempLog[-100:]
+            self.time = now
+            
+    def loadrecipe(self, strike_temp, sparge_temp, mash_temp, mash_time, boil_temp, boil_time):
+        self.recipe = Recipe(strike_temp, sparge_temp, mash_temp, mash_time, boil_temp, boil_time)
+        self.mash.set_temp(mash_temp)
+        self.mash.set_time(mash_time)
+        self.hlt.set_temp(strike_temp)
+        self.boil.set_temp(boil_temp)
+        self.boil.set_time(boil_time)
+        self.controller.setPoint(self.keg.setTemp)
+            
 class Keg:
-    def __init__(self, setTemp, setTime=0):
-        self.temp = 55
-        self.volume = 6
-        self.setTemp = setTemp
-        self.setTime = setTime
+    def __init__(self):
+        self.temp = 20
+        self.volume = 0
         self.running = False
         self.element_on = False
         self.stable = False
-        self.time = setTime
+        self.time = 0
+        
+    def set_temp(self, temp):
+        self.setTemp = temp
+    
+    def set_time(self, time):
+        self.setTime = time
+        self.time = time
+        
+class Recipe:
+    def __init__(self, strike_temp, sparge_temp, mash_temp, mash_time, boil_temp, boil_time):
+        self.strike_temp = strike_temp
+        self.mash_temp = mash_temp
+        self.boil_temp = boil_temp
+        self.mash_time = mash_time
+        self.boil_time = boil_time
+        self.sparge_temp = sparge_temp
+        self.run_time = mash_time + boil_time       
+        self.strike_volume = 5
+        self.sparge_volume = 5
+
         

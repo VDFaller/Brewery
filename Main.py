@@ -26,6 +26,7 @@ class MW(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.alarmbtn_mash.toggled.connect(self.alarmbtn_toggle)
         self.alarmbtn_boil.toggled.connect(self.alarmbtn_toggle)
         self.btn_start.clicked.connect(self.start_brew)
+        self.controller = Logic.Controls()
         
     def alarm(self, stage, error_msg):
         alarm = getattr(self, "alarm_"+stage)
@@ -49,6 +50,17 @@ class MW(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         else:
             source.setText("Alarm ON")
     
+    def run(self):
+        self.running = True
+        #start the while loop
+        while self.running:
+            QtWidgets.qApp.processEvents()
+            self.update()
+            self.controller.update()
+            if self.controller.done:
+                self.end_brew()
+            time.sleep(0.05)
+    
     def start_brew(self):
         self.textBrowser.append("Brew Starting")
         self.btn_start.setEnabled(False)
@@ -66,18 +78,8 @@ class MW(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         mash_temp = self.lcd_mash_set.intValue()
         strike_temp = self.lcd_strike_set.intValue()
         boil_temp = self.lcd_boil_set.intValue()
-        self.recipe = Logic.Recipe(strike_temp, sparge_temp, mash_temp, mash_time, boil_temp, boil_time)
-        self.running = True
-        
-        #start the while loop
-        while self.running:
-            QtWidgets.qApp.processEvents()
-            self.update()
-            self.recipe.update()
-            if self.recipe.done:
-                self.end_brew()
-            time.sleep(0.05)
-        
+        self.controller.loadrecipe(strike_temp, sparge_temp, mash_temp, mash_time, boil_temp, boil_time)
+        self.controller.started = True        
         
     def end_brew(self):
         self.textBrowser.append("Brew Finished")
@@ -90,20 +92,21 @@ class MW(QtWidgets.QMainWindow, MainWindow.Ui_MainWindow):
         self.sldr_boil_time.setEnabled(True)
         self.sldr_mash_time.setEnabled(True)
         self.running = False
+        self.controller.started = False
         
         
     def update(self):
-        recipe = self.recipe
-        self.lcd_boil_meas.setProperty("value", recipe.boil.temp)
-        self.lcd_hlt_meas.setProperty("value", recipe.hlt.temp)
-        self.lcd_mash_meas.setProperty("value", recipe.mash.temp)
-        self.lcd_mash_time.setProperty("intValue", math.floor(recipe.mash.time))
-        self.lcd_boil_time.setProperty("intValue", math.floor(recipe.boil.time))
-        time_left = recipe.mash.time + recipe.boil.time
-        percentDone = (self.recipe.run_time - time_left)/self.recipe.run_time
-        self.progressBar.setProperty("value", percentDone)
-        if recipe.change:
-            self.textBrowser.append("Changing to step "+str(recipe.currentStep))
+        controller = self.controller
+        self.lcd_boil_meas.setProperty("value", controller.boil.temp)
+        self.lcd_hlt_meas.setProperty("value", controller.hlt.temp)
+        self.lcd_mash_meas.setProperty("value", controller.mash.temp)
+        self.lcd_mash_timeleft.setProperty("intValue", math.floor(controller.mash.time))
+        self.lcd_boil_timeleft.setProperty("intValue", math.floor(controller.boil.time))
+        #time_left = controller.mash.time + controller.boil.time
+        # = (self.controller.recipe.run_time - time_left)/self.controller.recipe.run_time
+        #self.progressBar.setProperty("value", percentDone)
+        if controller.change:
+            self.textBrowser.append("Changing to step "+str(controller.currentStep))
 
 
         
@@ -112,4 +115,5 @@ if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     form = MW()
     form.show()
+    form.run()
     app.exec_()
